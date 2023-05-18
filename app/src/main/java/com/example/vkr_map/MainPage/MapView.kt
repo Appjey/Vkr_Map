@@ -1,8 +1,6 @@
 package com.example.vkr_map.MainPage
 
 import android.annotation.SuppressLint
-import android.util.LruCache
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +13,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,30 +21,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.vkr_map.BottomNavigationBar
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.*
-import retrofit2.Response
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
 
 
-val cacheSize = 10 * 1024 * 1024 // 10 MiB
-val polylineCache = LruCache<String, List<LatLng>>(cacheSize)
+
 var routeTest: List<LatLng> = listOf(LatLng(55.75, 37.61), LatLng(53.9, 27.5667))
 class MapFragment : Fragment() {
 
@@ -68,7 +58,7 @@ class MapFragment : Fragment() {
         val moscow = LatLng(55.75, 37.61)
         val minsk = LatLng(53.9, 27.5667)
         val cameraPositionState = rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(moscow, 10f)
+            position = CameraPosition.fromLatLngZoom(routeTest[0], 10f)
         }
         var uiSettings by remember { mutableStateOf(MapUiSettings()) }
         val mapLoaded = remember { mutableStateOf(false) }
@@ -84,7 +74,7 @@ class MapFragment : Fragment() {
         Scaffold(
             topBar = { MapTopAppBar(title = "Main Page", navController = navController) },
             bottomBar = {
-                BottomNavigationBar(modifier = Modifier, navController = navController)
+                BottomNavigationBar(navController = navController)
             },
             content = {
                 Column(
@@ -105,12 +95,9 @@ class MapFragment : Fragment() {
                         }
                     ) {
                         Polyline(points = routeTest, color = Color.Red, width = 10f)
-
+                        routeTest.forEachIndexed { _, i ->
+                            Marker(state = MarkerState(position = i))
                         }
-                    DisposableEffect(Unit) {
-                        // Переотрисовка карты при изменении нового пути
-                        mapKey.value += 1
-                        onDispose { }
                     }
                 }
             }

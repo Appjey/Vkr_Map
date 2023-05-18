@@ -46,12 +46,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.core.app.ActivityCompat
+import androidx.navigation.NavController
 import com.google.android.gms.location.LocationServices
 import com.google.type.LatLng
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomDialog(value: String, setShowDialog: (Boolean) -> Unit, setValue: (String) -> Unit) {
+fun AddRoute(navController: NavController, value: String, setShowDialog: (Boolean) -> Unit, setValue: (String) -> Unit) {
 
     val txtFieldError = remember { mutableStateOf("") }
     val context = LocalContext.current
@@ -195,10 +196,10 @@ fun CustomDialog(value: String, setShowDialog: (Boolean) -> Unit, setValue: (Str
                                 setValue(txtField1.value)
                                 setValue(txtField2.value)
                                 if (txtField1.value == ""){
-                                    RouteViewModel().addRoute("${location?.latitude} ${location?.longitude}", txtField2.value)
+                                    RouteViewModel().ApplyRoute("${location?.latitude} ${location?.longitude}", txtField2.value, navController = navController)
                                 }
                                 else{
-                                    RouteViewModel().addRoute(txtField1.value, txtField2.value)
+                                    RouteViewModel().ApplyRoute(txtField1.value, txtField2.value, navController = navController)
                                 }
                                 setShowDialog(false)
                             },

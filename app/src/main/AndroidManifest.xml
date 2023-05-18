@@ -28,7 +28,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDsYw7W26TMT2xvotK7Wrv_oAPAm0zGjFI"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".HelloActivity"
             android:exported="true"
             android:theme="@style/Theme.Vkr_Map">
             <intent-filter>
@@ -37,6 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".LoginActivity"/>
+<!--        <activity android:name="HomeActivity"/>-->
     </application>
 
 </manifest>
