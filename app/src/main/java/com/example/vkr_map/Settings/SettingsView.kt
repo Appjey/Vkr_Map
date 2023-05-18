@@ -1,4 +1,4 @@
-package com.example.vkr_map.Profile
+package com.example.vkr_map.Settings
 
 
 import android.annotation.SuppressLint
@@ -38,13 +38,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
-class ProfileFragment {
+class SettingsFragment {
     @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     @Preview(showBackground = true)
     @ExperimentalAnimationApi
-    fun ProfileView(
+    fun  SettingsView(
         enter: EnterTransition = slideInHorizontally() + expandHorizontally(expandFrom = Alignment.End)
                 + fadeIn(),
         exit: ExitTransition = slideOutHorizontally(targetOffsetX = { fullWidth -> fullWidth })
@@ -52,7 +52,7 @@ class ProfileFragment {
     ) {
         val navController = rememberNavController()
         Scaffold(
-            topBar = { ProfileTopAppBar(navController = navController, title = "Profile Page") },
+            topBar = { SettingsTopAppBar(navController = navController, title = "Settings Page") },
             //bottomBar = { BottomBar(navController = navController)},
             content = {
                 Column(
@@ -63,7 +63,7 @@ class ProfileFragment {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CardDemo(name = "Profile")
+                    CardDemo(name = "Settings")
                 }
             }
         )
@@ -72,7 +72,7 @@ class ProfileFragment {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileTopAppBar(title: String, navController: NavController) {
+fun SettingsTopAppBar(title: String, navController: NavController) {
     CenterAlignedTopAppBar(
         title = { Text(text = title, fontSize = MaterialTheme.typography.headlineLarge.fontSize) },
         colors = TopAppBarDefaults.smallTopAppBarColors(

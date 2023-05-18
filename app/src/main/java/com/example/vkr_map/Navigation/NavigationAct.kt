@@ -19,6 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.vkr_map.MainPage
 import com.example.vkr_map.MainPage.MapFragment
 import com.example.vkr_map.Profile.ProfileFragment
+import com.example.vkr_map.Settings.SettingsFragment
 import kotlin.system.exitProcess
 
 sealed class Navigation(var title:String, var icon: ImageVector, var screen_route:String) {
@@ -55,9 +56,9 @@ fun NavigationGraph(navController: NavHostController) {
             MapFragment().MapView()
             currentScreenLabel = Navigation.Home.screen_route
         }
-//        composable(Navigation.Settings.screen_route) {
-//            SettingsFagment().SettingsScreen()
-//        }
+        composable(Navigation.Settings.screen_route) {
+            SettingsFragment().SettingsView()
+        }
         composable(Navigation.Login.screen_route) {
             LoginScreenPreview()
             currentScreenLabel = Navigation.Login.screen_route
