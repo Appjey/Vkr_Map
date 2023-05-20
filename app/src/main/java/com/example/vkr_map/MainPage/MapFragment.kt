@@ -38,7 +38,6 @@ import kotlinx.coroutines.*
 
 
 
-var routeTest: List<LatLng> = listOf(LatLng(55.75, 37.61), LatLng(53.9, 27.5667))
 class MapFragment : Fragment() {
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -47,8 +46,6 @@ class MapFragment : Fragment() {
     ) {
         MapScreen()
     }
-
-
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
@@ -147,16 +144,17 @@ class MapFragment : Fragment() {
     suspend fun getRoute() {
 
     }
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun MapTopAppBar(title: String, navController: NavController) {
+        CenterAlignedTopAppBar(
+            title = { Text(text = title, fontSize = MaterialTheme.typography.headlineLarge.fontSize) },
+            colors = TopAppBarDefaults.smallTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                titleContentColor = Color.Black,
+            ),
+        )
+    }
+
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MapTopAppBar(title: String, navController: NavController) {
-    CenterAlignedTopAppBar(
-        title = { Text(text = title, fontSize = MaterialTheme.typography.headlineLarge.fontSize) },
-        colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            titleContentColor = Color.Black,
-        ),
-    )
-}

@@ -9,7 +9,6 @@ class LoginViewModel : ViewModel() {
 
         viewModelScope.launch {
             val response = ApiService.loginService.login(username, password)
-
             onLoginResult(response)
         }
     }

@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.vkr_map.Login.activeUser
 import com.example.vkr_map.Navigation.Navigation
 import com.example.vkr_map.Navigation.NavigationGraph
 import com.example.vkr_map.Navigation.currentScreenLabel
@@ -50,7 +51,7 @@ fun MainPage() {
 fun TopAppBarWithButtons(navController: NavController) {
     val openDialog = remember { mutableStateOf(false) }
     return CenterAlignedTopAppBar(
-        title = { Text(text = currentScreenLabel, fontSize = MaterialTheme.typography.headlineLarge.fontSize) },
+        title = { Text(text = activeUser[1], fontSize = MaterialTheme.typography.headlineLarge.fontSize) },
         actions = {
             Button(onClick = { exitProcess(404) }) {
                 Text("LogOut")

@@ -3,6 +3,7 @@ package com.example.vkr_map.MainPage
 import android.Manifest
 import android.R
 import android.content.pm.PackageManager
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -195,12 +196,19 @@ fun AddRoute(navController: NavController, value: String, setShowDialog: (Boolea
                             onClick = {
                                 setValue(txtField1.value)
                                 setValue(txtField2.value)
-                                if (txtField1.value == ""){
-                                    RouteViewModel().ApplyRoute("${location?.latitude} ${location?.longitude}", txtField2.value, navController = navController)
+                                if (txtField2.value == ""){
+                                    txtFieldError.value = "Enter value"
+                                    Toast.makeText(context, "Enter value", Toast.LENGTH_LONG).show()
+                                    return@Button
+                                } else{
+                                    if (txtField1.value == ""){
+                                        RouteViewModel().ApplyRoute("${location?.latitude} ${location?.longitude}", txtField2.value, navController = navController)
+                                    }
+                                    else{
+                                        RouteViewModel().ApplyRoute(txtField1.value, txtField2.value, navController = navController)
+                                    }
                                 }
-                                else{
-                                    RouteViewModel().ApplyRoute(txtField1.value, txtField2.value, navController = navController)
-                                }
+                                Toast.makeText(context, "Distance: ${calculateDistance(pointA, pointB)}", Toast.LENGTH_LONG).show()
                                 setShowDialog(false)
                             },
                             shape = RoundedCornerShape(50.dp),
